@@ -237,13 +237,29 @@ class LanceDb extends VectorDatabase {
    */
   async updateOrCreateCollection(client, data = [], namespace) {
     const hasNamespace = await this.hasNamespace(namespace);
+    const BATCH_SIZE = 100; // Insert vectors in smaller batches to avoid LanceDB write errors
+
     if (hasNamespace) {
       const collection = await client.openTable(namespace);
-      await collection.add(data);
+      // Batch insertions to avoid overwhelming LanceDB with large writes
+      for (let i = 0; i < data.length; i += BATCH_SIZE) {
+        const batch = data.slice(i, i + BATCH_SIZE);
+        await collection.add(batch);
+      }
       return true;
     }
 
-    await client.createTable(namespace, data);
+    // Create table with first batch, then add remaining batches
+    if (data.length <= BATCH_SIZE) {
+      await client.createTable(namespace, data);
+    } else {
+      await client.createTable(namespace, data.slice(0, BATCH_SIZE));
+      const collection = await client.openTable(namespace);
+      for (let i = BATCH_SIZE; i < data.length; i += BATCH_SIZE) {
+        const batch = data.slice(i, i + BATCH_SIZE);
+        await collection.add(batch);
+      }
+    }
     return true;
   }
 

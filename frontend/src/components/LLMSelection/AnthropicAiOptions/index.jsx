@@ -92,6 +92,22 @@ export default function AnthropicAiOptions({ settings }) {
 
 const DEFAULT_MODELS = [
   {
+    id: "claude-opus-4-5-20251101",
+    name: "Claude 4.5 Opus",
+  },
+  {
+    id: "claude-sonnet-4-5-20250929",
+    name: "Claude 4.5 Sonnet",
+  },
+  {
+    id: "claude-haiku-4-5-20251001",
+    name: "Claude 4.5 Haiku",
+  },
+  {
+    id: "claude-sonnet-4-20250514",
+    name: "Claude 4 Sonnet",
+  },
+  {
     id: "claude-3-7-sonnet-20250219",
     name: "Claude 3.7 Sonnet",
   },

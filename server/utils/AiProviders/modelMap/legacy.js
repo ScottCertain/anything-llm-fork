@@ -1,5 +1,9 @@
 const LEGACY_MODEL_MAP = {
   anthropic: {
+    "claude-opus-4-5-20251101": 200000,
+    "claude-sonnet-4-5-20250929": 200000,
+    "claude-haiku-4-5-20251001": 200000,
+    "claude-sonnet-4-20250514": 200000,
     "claude-instant-1.2": 100000,
     "claude-2.0": 100000,
     "claude-2.1": 200000,

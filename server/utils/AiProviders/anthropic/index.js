@@ -153,7 +153,7 @@ class AnthropicLLM {
       const result = await LLMPerformanceMonitor.measureAsyncFunction(
         this.anthropic.messages.create({
           model: this.model,
-          max_tokens: 4096,
+          max_tokens: 32000,
           system: this.#buildSystemPrompt(systemContent),
           messages: messages.slice(1), // Pop off the system message
           temperature: Number(temperature ?? this.defaultTemp),
@@ -186,7 +186,7 @@ class AnthropicLLM {
     const measuredStreamRequest = await LLMPerformanceMonitor.measureStream({
       func: this.anthropic.messages.stream({
         model: this.model,
-        max_tokens: 4096,
+        max_tokens: 32000,
         system: this.#buildSystemPrompt(systemContent),
         messages: messages.slice(1), // Pop off the system message
         temperature: Number(temperature ?? this.defaultTemp),
